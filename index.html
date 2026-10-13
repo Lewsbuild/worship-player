@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#1b1230">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <title>Worship Player</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>🎵 Worship Player</h1>
+    <div class="hbtns">
+      <button id="eqBtn" title="Equalizer">🎚 EQ</button>
+      <button id="addBtn" class="primary">+ Add Song</button>
+    </div>
+  </header>
+
+  <section class="controls">
+    <input id="search" type="search" placeholder="Search song or artist…">
+    <select id="artistFilter" aria-label="Filter by artist"></select>
+  </section>
+  <div id="storage" class="muted"></div>
+
+  <main>
+    <ul id="list"></ul>
+    <div id="empty" class="empty" hidden>
+      <p>Wala pang kanta dito.</p>
+      <p class="muted">Tap <b>+ Add Song</b> para magdagdag ng audio file mula sa phone mo, o ilagay sa <code>catalog.json</code> ang mga kantang may lisensya ang church.</p>
+    </div>
+  </main>
+
+  <footer id="player">
+    <div class="now">
+      <div id="npTitle">Walang pinapatugtog</div>
+      <div id="npArtist" class="muted">—</div>
+    </div>
+    <div class="seek">
+      <span id="tCur">0:00</span>
+      <input id="seek" type="range" min="0" max="1000" value="0" aria-label="Seek">
+      <span id="tDur">0:00</span>
+    </div>
+    <div class="buttons">
+      <button id="shuffleBtn" title="Shuffle" aria-pressed="false">🔀</button>
+      <button id="prevBtn" title="Previous">⏮</button>
+      <button id="playBtn" class="big" title="Play / Pause">▶</button>
+      <button id="nextBtn" title="Next">⏭</button>
+      <button id="repeatBtn" title="Repeat" aria-pressed="false">🔁</button>
+    </div>
+  </footer>
+
+  <dialog id="addDialog">
+    <form id="addForm" method="dialog">
+      <h2>Magdagdag ng Kanta</h2>
+
+      <label>Artist
+        <input id="fArtist" list="artistList" required placeholder="Piliin o i-type ang artist">
+        <datalist id="artistList"></datalist>
+      </label>
+
+      <label>Audio file(s) mula sa phone
+        <input id="fFiles" type="file" accept="audio/*" multiple>
+      </label>
+
+      <p class="muted center">— o —</p>
+
+      <label>Title (optional kung file)
+        <input id="fTitle" placeholder="Pamagat ng kanta">
+      </label>
+      <label>Audio link (para sa file na naka-host sa app mo)
+        <input id="fUrl" type="text" placeholder="songs/pamagat.mp3">
+      </label>
+
+      <p id="formMsg" class="muted"></p>
+      <div class="row">
+        <button type="button" id="cancelBtn">Cancel</button>
+        <button type="submit" class="primary">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="toast" role="status"></div>
+  <audio id="audio" preload="metadata"></audio>
+
+  <script src="artists.js"></script>
+  <script src="app.js"></script>
+  <script src="eq.js"></script>
+</body>
+</html>
